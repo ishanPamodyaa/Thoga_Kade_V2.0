@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="466.0" prefWidth="641.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CustomerFormController">
+    <children>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#212f3c" height="102.0" stroke="BLACK" strokeType="INSIDE" width="641.0" />
+        <TextField fx:id="txtID" layoutX="102.0" layoutY="132.0" prefHeight="25.0" prefWidth="194.0" promptText="ID" text="ID" />
+        <Label layoutX="301.0" layoutY="23.0" text="Customer Form" textFill="#868686ed">
+            <font>
+                <Font name="System Bold" size="39.0" />
+            </font>
+        </Label>
+        <ImageView fitHeight="73.0" fitWidth="86.0" layoutX="29.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../image/customer.png" />
+            </image>
+        </ImageView>
+        <TextField fx:id="txtName" layoutX="353.0" layoutY="132.0" prefHeight="25.0" prefWidth="194.0" promptText="Name" text="Name" />
+        <TextField fx:id="txtAddress" layoutX="102.0" layoutY="176.0" prefHeight="25.0" prefWidth="194.0" promptText="Address" text="Address" />
+        <TextField fx:id="txtSalary" layoutX="353.0" layoutY="176.0" prefHeight="25.0" prefWidth="194.0" promptText="Salary" text="Salary" />
+        <Button fx:id="btnAddCustomer" layoutX="516.0" layoutY="226.0" mnemonicParsing="false" onAction="#btnOnActionAddCustomer" prefHeight="25.0" prefWidth="94.0" text="Add Customer" />
+        <Button fx:id="btnUpdateCustomer" layoutX="376.0" layoutY="226.0" mnemonicParsing="false" onAction="#btnOnActionUpaterCustomer" prefHeight="25.0" prefWidth="118.0" text="Update" />
+        <Button fx:id="btnReload" layoutX="519.0" layoutY="431.0" mnemonicParsing="false" onAction="#btnOnActionReload" prefHeight="25.0" prefWidth="94.0" text="Reload" />
+        <Button fx:id="btnDeleteCustomer1" layoutX="247.0" layoutY="224.0" mnemonicParsing="false" onAction="#btnOnActionDeleteCustomer" prefHeight="25.0" prefWidth="118.0" text="Delete" />
+        <Button fx:id="btnSearchCustomer" layoutX="116.0" layoutY="226.0" mnemonicParsing="false" onAction="#btnOnActionSearchCustomer" prefHeight="25.0" prefWidth="118.0" text="Search" />
+      <TableView fx:id="tblCustDetail" layoutX="24.0" layoutY="266.0" prefHeight="150.0" prefWidth="593.0">
+        <columns>
+          <TableColumn fx:id="colID" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="colName" prefWidth="205.0" text="Name" />
+            <TableColumn fx:id="ColAddress" prefWidth="190.0" text="Address" />
+            <TableColumn fx:id="colSalary" prefWidth="122.0" text="Salary" />
+        </columns>
+      </TableView>
+    </children>
+</AnchorPane>
