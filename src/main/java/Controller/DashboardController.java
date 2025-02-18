@@ -12,6 +12,7 @@ import java.net.URL;
 
 public class DashboardController {
 
+    public Button btnRegister;
     @FXML
     private Button btnCustomerForm;
 
@@ -42,6 +43,17 @@ public class DashboardController {
 
     @FXML
     void onActionBtnOrderForm(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onActionBtnRegisterForm(ActionEvent event) throws IOException {
+        URL resource = this.getClass().getResource("/View/CustomerRegisterForm.fxml");
+        assert resource != null;
+        Parent load = FXMLLoader.load(resource);
+
+        loadFormContain.getChildren().clear();
+        loadFormContain.getChildren().add(load);
 
     }
 

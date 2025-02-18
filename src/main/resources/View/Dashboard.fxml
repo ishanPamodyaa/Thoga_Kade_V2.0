@@ -25,5 +25,10 @@
          </font>
       </Button>
       <AnchorPane fx:id="loadFormContain" layoutX="171.0" layoutY="-3.0" prefHeight="480.0" prefWidth="639.0" />
+      <Button fx:id="btnRegister" layoutX="9.0" layoutY="267.0" mnemonicParsing="false" onAction="#onActionBtnRegisterForm" prefHeight="39.0" prefWidth="153.0" text="Register New User">
+         <font>
+            <Font name="System Bold Italic" size="15.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

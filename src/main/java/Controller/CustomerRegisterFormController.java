@@ -8,6 +8,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import org.example.Starter;
+import org.jasypt.util.text.BasicTextEncryptor;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -34,6 +36,13 @@ public class CustomerRegisterFormController {
     @FXML
     void onActionBtnRegister(ActionEvent event) throws SQLException {
 
+        String key = "123#ish" ;
+
+        BasicTextEncryptor basicTextEncryptor = new BasicTextEncryptor();
+
+        basicTextEncryptor.setPassword(key);
+
+
         String SQl = "Insert into users (username,email,password) values(?,?,?)";
 
 
@@ -49,10 +58,12 @@ public class CustomerRegisterFormController {
                     pswdField.getText()
             );
 
+
+
             PreparedStatement pstm =  connection.prepareStatement(SQl);
             pstm.setString(1,user.getUsername());
                 pstm.setString(2,user.getEmail());
-                pstm.setString(3,user.getPassword());
+                pstm.setString(3,basicTextEncryptor.encrypt(user.getPassword()));
                 pstm.executeUpdate();
 
         }else {

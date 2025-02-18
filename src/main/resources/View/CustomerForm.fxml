@@ -33,12 +33,12 @@
         <Button fx:id="btnReload" layoutX="519.0" layoutY="431.0" mnemonicParsing="false" onAction="#btnOnActionReload" prefHeight="25.0" prefWidth="94.0" text="Reload" />
         <Button fx:id="btnDeleteCustomer1" layoutX="247.0" layoutY="224.0" mnemonicParsing="false" onAction="#btnOnActionDeleteCustomer" prefHeight="25.0" prefWidth="118.0" text="Delete" />
         <Button fx:id="btnSearchCustomer" layoutX="116.0" layoutY="226.0" mnemonicParsing="false" onAction="#btnOnActionSearchCustomer" prefHeight="25.0" prefWidth="118.0" text="Search" />
-      <TableView fx:id="tblCustDetail" layoutX="24.0" layoutY="266.0" prefHeight="150.0" prefWidth="593.0">
+      <TableView fx:id="tblCustDetail" layoutX="24.0" layoutY="266.0" prefHeight="150.0" prefWidth="586.0">
         <columns>
           <TableColumn fx:id="colID" prefWidth="75.0" text="ID" />
           <TableColumn fx:id="colName" prefWidth="205.0" text="Name" />
             <TableColumn fx:id="ColAddress" prefWidth="190.0" text="Address" />
-            <TableColumn fx:id="colSalary" prefWidth="122.0" text="Salary" />
+            <TableColumn fx:id="colSalary" prefWidth="116.0" text="Salary" />
         </columns>
       </TableView>
     </children>
