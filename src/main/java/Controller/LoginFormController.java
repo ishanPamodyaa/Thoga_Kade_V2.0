@@ -42,8 +42,7 @@ public class LoginFormController {
         String SQL = "Select * from users where email="+ "'"+txtEmail.getText()+"'";
         Connection conection = DBConnection.getInstance().getConnection();
         ResultSet resultset = conection.createStatement().executeQuery(SQL);
-//        System.out.println(resultset);
-//        System.out.println(txtEmail.getText()+ "  "+ pswTxt.getText() );
+
         if(resultset.next()){
            User user= new User(
                     resultset.getString(2),
@@ -62,7 +61,6 @@ public class LoginFormController {
         }else {
           new Alert(Alert.AlertType.ERROR,"User Not Found").show();
         }
-
     }
 
     @FXML
