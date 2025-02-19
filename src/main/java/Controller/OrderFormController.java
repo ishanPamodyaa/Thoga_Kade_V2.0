@@ -1,6 +1,9 @@
 package Controller;
 
+import Controller.item.itemController;
 import Model.Customer;
+import Model.Item;
+import Model.TM.CartTM;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -16,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Duration;
 
 import java.net.URL;
@@ -23,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class OrderFormController implements Initializable {
@@ -83,9 +88,25 @@ public class OrderFormController implements Initializable {
 
     @FXML
     private TextField txtUnitPrice;
-
+    ObservableList <CartTM> cartItems = FXCollections.observableArrayList();
     @FXML
     void onActionBtnAddtoCart(ActionEvent event) {
+
+
+
+        String code = cmbItemCode.getValue().toString();
+        String description = txtDiscription.getText();
+        Integer qty = Integer.parseInt(txtQty.getText());
+        Double price =Double.parseDouble(txtUnitPrice.getText());
+        Double totalPrice = qty*price;
+
+        cartItems.add(new CartTM(code,description,qty,price,totalPrice));
+
+
+
+
+        tblOrder.setItems(cartItems);
+        calNetTotal();
 
     }
 
@@ -112,6 +133,17 @@ public class OrderFormController implements Initializable {
 
     }
 
+    private  void calNetTotal(){
+        Double netTotal=0.0;
+
+        for(CartTM tm: cartItems){
+
+            netTotal += tm.getTotal();
+        }
+
+        txtTotalPrice.setText(netTotal.toString());
+    }
+
     private void loadCustomerID(){
         CustomerController customerController = new CustomerController();
 
@@ -126,8 +158,16 @@ public class OrderFormController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        colItemCode.setCellValueFactory(new PropertyValueFactory<>("itemCode"));
+        colDesc.setCellValueFactory(new  PropertyValueFactory<>("discription"));
+        txtQIH.setCellValueFactory(new PropertyValueFactory<>("qtyOnHand"));
+        colUnitPrice.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
+        colTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
+
         setDateTime();
         loadCustomerID();
+        loadItemCode();
 
 
         cmbCustID.getSelectionModel().selectedItemProperty().addListener((observableValue, oldVal, newVal) ->{
@@ -138,6 +178,29 @@ public class OrderFormController implements Initializable {
             }
 
         } );
+
+        cmbItemCode.getSelectionModel().selectedItemProperty().addListener((observableValue, oldVal,newVal ) -> {
+            if(newVal!=null){
+                searchItemData(newVal.toString());
+            }
+        } );
+    }
+
+    private void loadItemCode() {
+
+        cmbItemCode.setItems(new itemController().getCode());
+    }
+
+    private void searchItemData(String itemCode) {
+   Item item = new itemController().searchItem(itemCode);
+
+        System.out.println(item);
+
+        txtDiscription.setText(item.getDescription());
+        txtStock.setText(item.getQtyOnHand().toString());
+        txtUnitPrice.setText(item.getUnitPrice().toString());
+
+
     }
 
     private void searchCustomerData(String cmbCustID) {
