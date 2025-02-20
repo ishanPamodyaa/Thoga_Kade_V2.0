@@ -3,6 +3,9 @@ package Service.custom.impl;
 import DB.DBConnection;
 import Model.Customer;
 import Service.custom.CustomerBo;
+import Utill.DaoType;
+import repocitory.DaoFactory;
+import repocitory.custom.CustomerDao;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,23 +13,11 @@ import java.util.List;
 
 public class CustomerBoImpl implements CustomerBo{
 
+    CustomerDao customerDao = DaoFactory.getInstance().getDaoType(DaoType.CUSTOMER);
+
     @Override
     public boolean addCustomer(Customer customer) {
-        String SQL = "insert into customer values(?,?,?,?)";
-
-        try {
-            Connection connection = DBConnection.getInstance().getConnection();
-            PreparedStatement pstm = connection.prepareStatement(SQL);
-            pstm.setObject(1,customer.getId());
-            pstm.setObject(2,customer.getName());
-            pstm.setObject(3,customer.getAddress());
-            pstm.setObject(4,customer.getSalary());
-
-            return pstm.executeUpdate()>0;
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+      return   customerDao.save(customer);
     }
 
     @Override

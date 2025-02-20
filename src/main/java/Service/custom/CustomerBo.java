@@ -1,15 +1,11 @@
 package Service.custom;
 
 import Model.Customer;
+import Service.SuperService;
 
 import java.util.List;
 
-public interface CustomerBo {
-
-
-
-
-
+public interface CustomerBo extends SuperService {
         boolean addCustomer(Customer customer);
 
         boolean updateCustomer(Customer customer);

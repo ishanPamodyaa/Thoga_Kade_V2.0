@@ -3,6 +3,10 @@ package Controller;
 import DB.DBConnection;
 import Model.Customer;
 import Model.TM.CartTM;
+import Service.BoFactory;
+import Service.custom.CustomerBo;
+import Service.custom.impl.CustomerBoImpl;
+import Utill.BoType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -57,9 +61,11 @@ public class CustomerFormController {
     @FXML
     private TextField txtSalary;
 
+    CustomerBo customerBo = BoFactory.getInstance().getBoType(BoType.CUSTOMER);
+
     @FXML
     void btnOnActionAddCustomer(ActionEvent event) {
-       boolean isCustomerAdd =  new CustomerController().addCustomer( new Customer(
+       boolean isCustomerAdd =  customerBo.addCustomer( new Customer(
                 txtID.getText(),
                 txtName.getText(),
                 txtAddress.getText(),
@@ -103,7 +109,7 @@ public class CustomerFormController {
 
         ObservableList <Customer> customerObservableList = FXCollections.observableArrayList();
 
-        new CustomerController().getAll().forEach(customer ->{
+        new CustomerBoImpl().getAll().forEach(customer ->{
             customerObservableList.add(customer);
         });
 

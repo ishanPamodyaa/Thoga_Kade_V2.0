@@ -6,6 +6,9 @@ import Model.Item;
 import Model.Order;
 import Model.OrderDetail;
 import Model.TM.CartTM;
+import Service.BoFactory;
+import Service.custom.CustomerBo;
+import Utill.BoType;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -87,6 +90,9 @@ public class OrderFormController implements Initializable {
     @FXML
     private TextField txtUnitPrice;
     ObservableList <CartTM> cartItems = FXCollections.observableArrayList();
+
+    CustomerBo customerBo = BoFactory.getInstance().getBoType(BoType.CUSTOMER);
+
     @FXML
     void onActionBtnAddtoCart(ActionEvent event) {
 
@@ -170,11 +176,11 @@ public class OrderFormController implements Initializable {
     }
 
     private void loadCustomerID(){
-        CustomerController customerController = new CustomerController();
+//        CustomerController customerController = new CustomerController();
 
 
         ObservableList <String> custID = FXCollections.observableArrayList();
-        List<Customer> all = customerController.getAll();
+        List<Customer> all = customerBo.getAll();
         all.forEach(customer -> {
             custID.add(customer.getId());
         });
@@ -229,8 +235,8 @@ public class OrderFormController implements Initializable {
     }
 
     private void searchCustomerData(String cmbCustID) {
-       Customer customer =  new CustomerController().searchCustomer(cmbCustID);
-
+//       Customer customer =  new CustomerController().searchCustomer(cmbCustID);
+        Customer customer = customerBo.searchCustomer(cmbCustID);
         System.out.println(customer);
 
         txtCustName.setText(customer.getName());
