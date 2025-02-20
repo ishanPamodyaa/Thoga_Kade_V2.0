@@ -1,19 +1,32 @@
-package Controller;
+package Service.custom.impl;
 
 import DB.DBConnection;
 import Model.Customer;
+import Service.custom.CustomerBo;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerController implements CustomerService {
+public class CustomerBoImpl implements CustomerBo{
+
     @Override
     public boolean addCustomer(Customer customer) {
-        return false;
+        String SQL = "insert into customer values(?,?,?,?)";
+
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            PreparedStatement pstm = connection.prepareStatement(SQL);
+            pstm.setObject(1,customer.getId());
+            pstm.setObject(2,customer.getName());
+            pstm.setObject(3,customer.getAddress());
+            pstm.setObject(4,customer.getSalary());
+
+            return pstm.executeUpdate()>0;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -32,14 +45,14 @@ public class CustomerController implements CustomerService {
 
 
 
-           resultSet.next();
+            resultSet.next();
             return  new Customer(
-                        resultSet.getString(1),
-                        resultSet.getString(2),
-                        resultSet.getString(3),
-                        resultSet.getDouble(4)
-                );
-            } catch (SQLException ex) {
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getDouble(4)
+            );
+        } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
     }

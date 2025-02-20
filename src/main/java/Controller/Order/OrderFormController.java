@@ -1,8 +1,10 @@
-package Controller;
+package Controller.Order;
 
 import Controller.item.itemController;
 import Model.Customer;
 import Model.Item;
+import Model.Order;
+import Model.OrderDetail;
 import Model.TM.CartTM;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -11,27 +13,23 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Duration;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class OrderFormController implements Initializable {
 
+    public TextField txtOrderId;
     @FXML
     private Button btnAddtoCart;
 
@@ -111,13 +109,40 @@ public class OrderFormController implements Initializable {
     }
 
     @FXML
-    void onActionPlaceOrder(ActionEvent event) {
+    void onActionPlaceOrder(ActionEvent event) throws SQLException {
 
+        String orderId = txtOrderId.getText();
+        String date = txtDate.getText();
+        String customerId = cmbCustID.getValue().toString();
+
+        List <OrderDetail> orderDetails = new ArrayList<>();
+
+        cartItems.forEach(cartTM -> {
+           orderDetails.add(
+            new OrderDetail(
+              orderId,
+              cartTM.getItemCode(),
+              cartTM.getQtyOnHand(),
+              cartTM.getUnitPrice()
+            )
+            );
+        });
+
+       Order order= new Order(
+                orderId,date,customerId,orderDetails
+        );
+
+
+       if(new OrderController().placrOrder(order)){
+           new Alert(Alert.AlertType.INFORMATION,"Order Place !").show();
+       }else {
+           new Alert(Alert.AlertType.ERROR,"Order Not Place !").show();
+       }
     }
 
     private void setDateTime(){
         Date date = new Date();
-       SimpleDateFormat dateFormat =  new SimpleDateFormat("dd-MM-yyyy");
+       SimpleDateFormat dateFormat =  new SimpleDateFormat("yyyy-MM-dd");
        String format = dateFormat.format(date);
        txtDate.setText(format);
 
@@ -211,4 +236,6 @@ public class OrderFormController implements Initializable {
         txtCustName.setText(customer.getName());
         txtAddress.setText(customer.getAddress());
     }
+
+
 }

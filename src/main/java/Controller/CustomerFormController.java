@@ -2,6 +2,7 @@ package Controller;
 
 import DB.DBConnection;
 import Model.Customer;
+import Model.TM.CartTM;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -58,7 +59,18 @@ public class CustomerFormController {
 
     @FXML
     void btnOnActionAddCustomer(ActionEvent event) {
+       boolean isCustomerAdd =  new CustomerController().addCustomer( new Customer(
+                txtID.getText(),
+                txtName.getText(),
+                txtAddress.getText(),
+                Double.parseDouble(txtSalary.getText())
+        ));
 
+       if(isCustomerAdd){
+           new Alert(Alert.AlertType.INFORMATION,"Customer Added !");
+       }else {
+           new Alert(Alert.AlertType.INFORMATION,"Customer Not Added !");
+       }
     }
 
     @FXML

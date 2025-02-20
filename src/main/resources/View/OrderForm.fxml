@@ -12,8 +12,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="480.0" prefWidth="639.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.OrderFormController">
+<AnchorPane prefHeight="480.0" prefWidth="639.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Order.OrderFormController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#212f3c" height="102.0" stroke="BLACK" strokeType="INSIDE" width="639.0" />
       <Label layoutX="379.0" layoutY="25.0" prefHeight="53.0" prefWidth="233.0" text="Order Form" textFill="#868686">
@@ -67,5 +66,11 @@
       <Label layoutX="231.0" layoutY="55.0" text="Time : " textFill="#c6baba" />
       <Label fx:id="txtDate" layoutX="271.0" layoutY="36.0" text="dd-MM-yyyy" textFill="#c6baba" />
       <Label fx:id="txtTime" layoutX="271.0" layoutY="56.0" text="00:00:00" textFill="#c6baba" />
+      <TextField fx:id="txtOrderId" layoutX="519.0" layoutY="108.0" prefHeight="25.0" prefWidth="74.0" promptText="DXXX" />
+      <Label layoutX="452.0" layoutY="111.0" text="Order IID">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
